@@ -7,3 +7,9 @@ By the way, my class is teaching with both Chinese and English. So don't care ab
 <br/>
 Kazuki Amakawa<br/>
 <br/>
+<br/>
+By the way, you may need to install these packages<br/>
+pip3 install Pillow<br/>
+pip3 install matplotlib<br/>
+<br/>
+And, it is confident that these can work without bug in the MacOS or Linux(or all Unix). Although it is can be compiled in Windows, I still not confident if they have any bug in Windows System, espacelly Windows10 (or Bug10)
