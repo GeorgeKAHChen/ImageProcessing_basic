@@ -13,3 +13,7 @@ pip3 install Pillow<br/>
 pip3 install matplotlib<br/>
 <br/>
 And, it is confident that these can work without bug in the MacOS or Linux(or all Unix). Although it is can be compiled in Windows, I still not confident if they have any bug in Windows System, espacelly Windows10 (or Bug10)
+<br/>
+<br/>
+WARNING:
+Althrough homeworks can work in the Windows System, The main program with paper <b>CANNOT</b> working even compiling on Windows System!!
