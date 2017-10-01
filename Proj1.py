@@ -18,12 +18,65 @@ import matplotlib.patches as patches
 #import files
 import Init
 
+
+def NO(img)
+	for i in range(0, len(img)):
+		for j in range(0, len(img[i])):
+			img[i][j] = 255 - img[i][j]
+	return img
+
+
+def TS(img, InpInt):
+	for i in range(0, len(img)):
+		for j in range(0, len(img[i])):
+			if img[i][j] <= InpInt:
+				img[i][j] = 0
+			else:
+				img[i][j] = 255
+	return img
+
+
+def GLL(img, InpInt1, InpInt2):
+	for i in range(0, len(img)):
+		for j in range(0, len(img[i])):
+			img[i][j] = min(InpInt1 * img[i][j] + InpInt2, 255)
+
+	return img
+
+
+def LT(img, InpInt1):
+	for i in range(0, len(img)):
+		for j in range(0, len(img[i])):
+			img[i][j] = min(InpInt1 * math.log(1+img[i][j]), 255)
+
+	return img
+
+
+def ET(img, InpInt1, InpInt2):
+	for i in range(0, len(img)):
+		for j in range(0, len(img[i])):
+			try:
+				img[i][j] = min(InpInt1 * (pow(InpInt2, img[i][j]) - 1), 255)
+			except:
+				print("Error !!")
+				return -1
+	return img
+
+
+def LTM(img, InpInt1):
+	for i in range(0, len(img)):
+		for j in range(0, len(img[i])):
+			img[i][j] = min(InpInt1 * img[i][j], 255)
+	return img
+
+
 def GLLT(img):
 	print("1)  Negative operation")
 	print("2)  Thresholding")
 	print("3)  Gray level linear transformation.")
 	print("4)  Logarithmic Transformation")
 	print("5)  Exponential transformation")
+	print("6)  Linear Treatment")
 	InpIn = 0
 	while 1:
 		InpStr = input("Input the algorithm you need:")
@@ -33,16 +86,14 @@ def GLLT(img):
 			print("Input Error")
 			continue
 		else:
-			if InpInt < 1 or InpInt > 5:
+			if InpInt < 1 or InpInt > 6:
 				print("Input Error")
 				continue
 			else:
 				break
 	
 	if InpInt == 1:
-		for i in range(0, len(img)):
-			for j in range(0, len(img[i])):
-				img[i][j] = 255 - img[i][j]
+		img = NO(img)
 
 	if InpInt == 2:
 		InpInt = 0
@@ -59,13 +110,7 @@ def GLLT(img):
 					continue
 				else:
 					break
-
-		for i in range(0, len(img)):
-			for j in range(0, len(img[i])):
-				if img[i][j] <= InpInt:
-					img[i][j] = 0
-				else:
-					img[i][j] = 255
+		img = TS(img, InpInt)
 
 	if InpInt == 3:
 		InpInt1 = 0
@@ -93,10 +138,7 @@ def GLLT(img):
 					continue
 				else:
 					break
-
-		for i in range(0, len(img)):
-			for j in range(0, len(img[i])):
-				img[i][j] = InpInt1 * img[i][j] + InpInt2
+		img = GLL(img, InpInt1, InpInt2)
 
 	if InpInt == 4:
 		InpInt1 = 0
@@ -109,9 +151,7 @@ def GLLT(img):
 				continue
 			else:
 				break
-		for i in range(0, len(img)):
-			for j in range(0, len(img[i])):
-				img[i][j] = InpInt1 * math.log(1+img[i][j])
+		img = LT(img, InpInt1)
 
 	if InpInt == 5:
 		InpInt1 = 0
@@ -139,14 +179,21 @@ def GLLT(img):
 					continue
 				else:
 					break
+		img = ET(img, InpInt1, InpInt2)
 
-		for i in range(0, len(img)):
-			for j in range(0, len(img[i])):
-				try:
-					img[i][j] = InpInt1 * (pow(InpInt2, img[i][j]) - 1)
-				except:
-					print("Error !!")
-					return -1
+	if InpInt == 6:
+		InpInt1 = 0
+		while 1:
+			InpStr = input("Now input the float C(float):  ")
+			try:
+				InpInt1 = float(InpStr)
+			except ValueError:
+				print("Input Error")
+				continue
+			else:
+				break
+		img = LTM(img, InpInt1)
+
 	Init.LogWrite("GLLT calculation succeed", "0")
 	return img
 
@@ -154,7 +201,7 @@ def GLLT(img):
 def GPTCal(img, InpInt):
 	for i in range(0, len(img)):
 		for j in range(0, len(img[i])):
-			img[i][j] = 255 * (pow((img[i][j] / 255), InpInt))
+			img[i][j] = min(255 * (pow((img[i][j] / 255), InpInt)), 255)
 	Init.LogWrite("GPTCal calculation succeed", "0")
 	return img
 
@@ -201,7 +248,7 @@ def CST(img):
 	for i in range(0, len(img)):
 		for j in range(0, len(img[i])):
 			#print(pow((InpInt1 / img[i][j] + ipusero), InpInt2))
-			img[i][j] = 255 / (1 + pow((InpInt1 / img[i][j] + ipusero), InpInt2) )
+			img[i][j] = min(255 / (1 + pow((InpInt1 / img[i][j] + ipusero), InpInt2) ), 255)
 	
 	Init.LogWrite("CST calculation succeed", "0")
 	return img
@@ -226,9 +273,12 @@ def HE(img):
 
 	for i in range(0, len(img)):
 		for j in range(0, len(img[i])):
-			img[i][j] = int(255 * ProSum[int(img[i][j])])
+			img[i][j] = min(int(255 * ProSum[int(img[i][j])]), 255)
 	Init.LogWrite("MET calculation succeed", "0")
 	return img
+
+
+
 
 
 

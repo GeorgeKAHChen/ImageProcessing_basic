@@ -15,11 +15,15 @@ import os
 import os.path
 import math
 import matplotlib.patches as patches
+from scipy import misc
+
 
 #import files
 import GradFig
 import Init
 import Proj1
+import TimeCal
+import Algorithm
 
 #return img array: the array of the figure
 #return -1 : exit or no figure
@@ -81,7 +85,12 @@ def Output(img):
 	plt.axis("off")
 	plt.show()
 	Init.LogWrite("Figure output succeed", "0")
-	input("Press Enter to continue")
+	InpStr = input("Save the figure?[Y/ n]")
+	if InpStr == "Y" or InpStr == "y":
+		Name = "Figure_"
+		Name += str(TimeCal.GetTime())
+		misc.imsave(Name, img)
+	return
 
 
 def MET(img):
@@ -142,8 +151,8 @@ def MainFunction(kind, Remimg):
 		if InpStr != "N" or InpStr != "n":
 			kind = 1
 	else:
-		img = Remimg
-		
+		img = Remimg.copy()
+
 	os.system("clear")
 	if kind != 0:
 		print("-1) Another picture")
@@ -154,6 +163,8 @@ def MainFunction(kind, Remimg):
 	print("5)  Maximum entropy for thresholding")
 	print("6)  Get Gradient of figure")
 	print("7)  Thresholding with Gradient")
+	print("8)  Statistic the figure")
+	print("9)  Auto algorithm!")
 	print("0)　EXIT")
 	InpInt = 0
 	while 1:
@@ -193,14 +204,18 @@ def MainFunction(kind, Remimg):
 		return
 	if InpInt == 7:
 		img = GradFig.GT(img)
-	
-	try:
-		img == -1
-	except:
+	if InpInt == 8:
+		GradFig.FigSta(img)
 		MainFunction(kind, Remimg)
 		return
+	if InpInt == 9:
+		img = Algorithm.Algorithm(img)
 
 	Output(img)
+	InpStr = input("Ues the new figure?")
+	if InpStr == "Y" or InpStr == "y":
+		Remimg = img.copy()
+
 	MainFunction(kind, Remimg)
 	return
 

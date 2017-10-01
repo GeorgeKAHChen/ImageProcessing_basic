@@ -18,6 +18,57 @@ import matplotlib.patches as patches
 #import files
 import Init
 
+def StaFigPrint(ay, maxx):
+	#Establish the figure
+	fig1 = plt.figure()
+	ax = fig1.add_subplot(111)
+	
+	#x y lim setting	
+	plt.xlim(0, 256)
+	plt.ylim(0, maxx)
+
+	#Printing loop
+	for i in range(0, len(ay)):
+		ax.add_patch(patches.Rectangle((i, 0), 1, ay[i], color = 'black'))
+
+	#Saving and output
+	fig1.show()
+	
+	input('Press Enter key to continue')
+	return
+
+
+def FigSta(img):
+	StaArr = [0 for n in range(256)]
+	TTL = 0
+	Ave = 0
+	Var = 0
+	Cot = 0
+	Cen = 0
+
+	for i in range(0, len(img)):
+		for j in range(0, len(img[i])):
+			StaArr[img[i][j]] += 1
+			TTL += img[i][j]
+
+	Ave = TTL / (len(img) * len(img[i]))
+	Owari = False
+	for i in range(0, len(StaArr)):
+		Var += StaArr[i] * pow((i - Ave), 2)
+		if Owari == False
+			if Cot <= (len(img) * len(img[i])):
+				Cot += StaArr[i]
+			else:
+				Owari = True
+				Cen = i
+
+	
+	Var = Var / (len(img) * len(img[i]))
+
+	StaFigPrint(StaArr, pow(len(img), 2) / 2)
+	return [int(Ave), int(Var), int(Cen)]
+
+
 def GetGradient(img):
 	GraArr = [0 for n in range(260)]
 
@@ -28,24 +79,10 @@ def GetGradient(img):
 				GraArr[abs(img[i][j+1] - img[i][j])] += 1
 			except:
 				continue
-
-	#Establish the figure
-	fig1 = plt.figure()
-	ax = fig1.add_subplot(111)
-	
-	#x y lim setting	
-	plt.xlim(0, 256)
-	plt.ylim(0, pow(len(img), 2) / 2)
-
-	#Printing loop
-	for i in range(0, len(GraArr)):
-		ax.add_patch(patches.Rectangle((i, 0), 1, GraArr[i], color = 'black'))
-
-	#Saving and output
-	fig1.show()
 	Init.LogWrite("Gradient Figure Output succeed", "0")
-	input('Press Enter key to continue')
+	StaFigPrint(GraArr, pow(len(img), 2) / 2)
 	return
+
 
 
 def GT(img):
