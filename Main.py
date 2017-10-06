@@ -16,7 +16,7 @@ import os.path
 import math
 import matplotlib.patches as patches
 from scipy import misc
-
+from collections import deque
 
 #import files
 import GradFig
@@ -24,13 +24,21 @@ import Init
 import Proj1
 import TimeCal
 import Algorithm
+import Convolution
 
 #return img array: the array of the figure
 #return -1 : exit or no figure
 def FigureInput():
 	Figure = []
 	Name = []
+	root0 = ""
 	for root, dirs, files in os.walk(os.getcwd()):
+		if root0 == "":
+			root0 = root
+			root0 += "/Output"
+		if root0 == root:
+			continue
+
 		for i in range(0, len(files)):
 			LocStr = root + "/" + files[i]
 			
@@ -89,7 +97,12 @@ def Output(img):
 	if InpStr == "Y" or InpStr == "y":
 		Name = "Figure_"
 		Name += str(TimeCal.GetTime())
+		Name += ".png"
+		os.system("cp null " + Name)
 		misc.imsave(Name, img)
+		if not os.path.exists("Output"):
+			os.system("mkdir Output")
+		os.system("mv " + Name + " Output/" + Name)
 	return
 
 
@@ -140,22 +153,27 @@ def MainFunction(kind, Remimg):
 	os.system("clear")
 	if kind == 0:
 		img = FigureInput()
-		Remimg = img.copy()
+		try:
+			Remimg = img.copy()
+		except:
+			return
+
 		try:
 			if img == -1:
 				return
 		except:
 			pass
 
-		InpStr = input("Lock the figure?[Y/ n]")
-		if InpStr != "N" or InpStr != "n":
+		InpStr = input("Lock the figure?[Y/ n]  ")
+		if InpStr == "N" or InpStr == "n":
+			kind = 0
+		else:
 			kind = 1
 	else:
 		img = Remimg.copy()
 
 	os.system("clear")
-	if kind != 0:
-		print("-1) Another picture")
+	print("-1) Another Figure")
 	print("1)  Gray level linear transformation.")
 	print("2)  Gamma(power) transformation.")
 	print("3)  Contrast-Stretching Transformations.")
@@ -165,17 +183,20 @@ def MainFunction(kind, Remimg):
 	print("7)  Thresholding with Gradient")
 	print("8)  Statistic the figure")
 	print("9)  Auto algorithm!")
+	print("10) Monte Carlo Average Constrast")
+	print("11) Convolution")
+	print("12) Histogram Equalization with Monte Carlo")
 	print("0)　EXIT")
 	InpInt = 0
 	while 1:
-		InpStr = input("Input the algorithm you need:")
+		InpStr = input("Input the algorithm you need:  ")
 		try:
 			InpInt = int(InpStr)
 		except ValueError:
 			print("Input Error")
 			continue
 		else:
-			if InpInt < -1 or InpInt > 10:
+			if InpInt < -1 or InpInt > 20:
 				print("Input Error")
 				continue
 			else:
@@ -205,14 +226,19 @@ def MainFunction(kind, Remimg):
 	if InpInt == 7:
 		img = GradFig.GT(img)
 	if InpInt == 8:
-		GradFig.FigSta(img)
+		GradFig.FigSta(img, 0)
 		MainFunction(kind, Remimg)
 		return
 	if InpInt == 9:
 		img = Algorithm.Algorithm(img)
-
+	if InpInt == 10:
+		img = Algorithm.MCAC(img)
+	if InpInt == 11:
+		img = Convolution.Convolution(img)
+	if InpInt == 12:
+		img = Algorithm.MCHE(img)
 	Output(img)
-	InpStr = input("Ues the new figure?")
+	InpStr = input("Use the new figure?")
 	if InpStr == "Y" or InpStr == "y":
 		Remimg = img.copy()
 

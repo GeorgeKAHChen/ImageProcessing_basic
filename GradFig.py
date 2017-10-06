@@ -14,6 +14,7 @@ import os
 import os.path
 import math
 import matplotlib.patches as patches
+from collections import deque
 
 #import files
 import Init
@@ -38,8 +39,8 @@ def StaFigPrint(ay, maxx):
 	return
 
 
-def FigSta(img):
-	StaArr = [0 for n in range(256)]
+def FigSta(img, kind):
+	StaArr = [0 for n in range(260)]
 	TTL = 0
 	Ave = 0
 	Var = 0
@@ -55,8 +56,8 @@ def FigSta(img):
 	Owari = False
 	for i in range(0, len(StaArr)):
 		Var += StaArr[i] * pow((i - Ave), 2)
-		if Owari == False
-			if Cot <= (len(img) * len(img[i])):
+		if Owari == False:
+			if Cot <= (len(img) * len(img[i])/2):
 				Cot += StaArr[i]
 			else:
 				Owari = True
@@ -64,14 +65,15 @@ def FigSta(img):
 
 	
 	Var = Var / (len(img) * len(img[i]))
-
-	StaFigPrint(StaArr, pow(len(img), 2) / 2)
-	return [int(Ave), int(Var), int(Cen)]
+	if kind == 0:
+		StaFigPrint(StaArr, pow(len(img), 2) / 2)
+		print([Ave, Var, Cen])
+	return [Ave, Var, Cen]
 
 
 def GetGradient(img):
 	GraArr = [0 for n in range(260)]
-
+	print(len(img)*len(img[0]))
 	for i in range(0, len(img)):
 		for j in range(0, len(img[i])):
 			try:
@@ -79,6 +81,8 @@ def GetGradient(img):
 				GraArr[abs(img[i][j+1] - img[i][j])] += 1
 			except:
 				continue
+	for i in range(0, len(GraArr)):
+		print(GraArr[i])
 	Init.LogWrite("Gradient Figure Output succeed", "0")
 	StaFigPrint(GraArr, pow(len(img), 2) / 2)
 	return
@@ -90,21 +94,19 @@ def GT(img):
 	img1 = [[0 for n in range(len(img[0])+10)] for n in range(len(img) + 10)]
 	img1 [0][0] = 0
 	for i in range(0, len(img)):
-		try:
-			if (abs(img[i+1][0] - img[i][0])) > 128:
+		if (i+1) < len(img):
+			if (abs(img[i+1][0] - img[i][0])) > 4:
 				if img[i][j] == 0:
 					img1[i+1][0] = 255
 				else:
 					img1[i+1][0] = 0
 			else:
 				img1[i+1][j] = img1[i][j]
-		except:
-			continue
 
 	for i in range(0, len(img)):
 		for j in range(0, len(img[i])):
 			try:
-				if (abs(img[i][j+1] - img[i][j])) > 128:
+				if (abs(img[i][j+1] - img[i][j])) > 4:
 					if img1[i][j] == 0:
 						img1[i][j+1] = 255
 					else:
@@ -115,3 +117,5 @@ def GT(img):
 				continue
 	Init.LogWrite("Gradient Figure Calculation succeed", "0")
 	return img1
+
+

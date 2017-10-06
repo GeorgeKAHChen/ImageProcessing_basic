@@ -14,12 +14,13 @@ import os
 import os.path
 import math
 import matplotlib.patches as patches
+from collections import deque
 
 #import files
 import Init
 
 
-def NO(img)
+def NO(img):
 	for i in range(0, len(img)):
 		for j in range(0, len(img[i])):
 			img[i][j] = 255 - img[i][j]
@@ -278,8 +279,3 @@ def HE(img):
 	return img
 
 
-
-
-
-
-	
