@@ -16,4 +16,21 @@ And, it is confident that these can work without bug in the MacOS or Linux(or al
 <br/>
 <br/>
 WARNING:
-Althrough homeworks can work in the Windows System, The main program with paper <b>CANNOT</b> working even compiling on Windows System!!
+Althrough homeworks can work in the Windows System, The main program with paper <b>CANNOT</b> working even compiling on Windows System!!<br/>
+<br/><br/>
+<br/><h2>Ver 1.00</h2><br/>
+<b>New Functions:</b><br/>
+1  Gray level linear transformation.<br/>
+2  Gamma(power) transformation.<br/>
+3  Contrast-Stretching Transformations.<br/>
+4  Histogram Equalization<br/>
+5  Maximum entropy for thresholding<br/>
+<br/><h2>Ver 1.01</h2><br/>
+<b>New Functions:</b><br/>
+1  Get Gradient of figure<br/>
+2  Thresholding with Gradient<br/>
+3  Statistic the figure<br/>
+<br/><h2>Ver 1.02</h2><br/>
+<b>New Functions:</b><br/>
+1  Convolution Function with fft and ifft algorithm<br/>
+2  Two Monte Carlo Algorithm for the paritical of figure (Actually not very ideal)<br/>
