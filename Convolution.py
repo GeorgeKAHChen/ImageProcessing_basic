@@ -56,24 +56,29 @@ def Convolution(img):
 	print("6)  [[1, 4, 7, 4, 1], [4, 16, 26, 16, 4], [7, 26, 41, 26, 7], [4, 16, 26, 16, 4],[1, 4, 7, 4, 1]] / 273")
 	print("7)  [[-1, -2, -1], [0, 0, 0], [1, 2, 1]]")
 	print("8)  [[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]]")
-	print("9)  ")
-	print("10) ")
+	print("9)  [[1 * 129] * 129]]")
+	print("10) [[1], [-1]]")
+	print("11) [[1, -1]]")
+	print("12) [[0, 1], [-1, 0]]")
+	print("13) [[1, 0], [0, -1]]")
+	print("14)")
+	print("15)")
 	print("0)  EXIT")
 	while 1:
-		InpStr = input("Input the kernal number you need.")
+		InpStr = input("Input the kernal number you need:  ")
 		try:
 			InpInt = int(InpStr)
 		except:
 			print("Input Error")
 			continue
 		else:
-			if InpInt < 1 or InpInt > 8:
+			if InpInt < 0 or InpInt > 20:
 				print("Input Error")
 				continue
 			else:
 				break
 	if InpInt == 0:
-		return 
+		return img
 	if InpInt == 1:
 		Kernel = np.array([[1, 1, 1], [1, 1, 1], [1, 1, 1]]) / 9
 	if InpInt == 2:
@@ -90,7 +95,24 @@ def Convolution(img):
 		Kernel = np.array([[-1, -2, -1], [0, 0, 0], [1, 2, 1]])
 	if InpInt == 8:
 		Kernel = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])
-		#Kernel = np.array([])
+	if InpInt == 9:
+		Kernel = np.array([[1 for n in range(15)] for n in range(15)])/15
+	if InpInt == 10:
+		Kernel = np.array([[1], [-1]])
+	if InpInt == 11:
+		Kernel = np.array([[1, -1]])
+	if InpInt == 12:
+		Kernel = np.array([[0, 1], [-1, 0]])		
+	if InpInt == 13:
+		Kernel = np.array([[1, 0], [0, -1]])
+	if InpInt == 14:
+		Kernel = np.array([[1, 1, 1,], [0, 0, 0], [-1, -1, -1]])
+	if InpInt == 15:
+		Kernel = np.array([[1, 0, -1], [1, 0, -1], [1, 0, -1]])
+		#Kernel = np.array([[]])
+		#Kernel = np.array([[]])
+		#Kernel = np.array([[]])
+		#Kernel = np.array([[]])
 	NewImg = D2FFT(img, Kernel)
 	for i in range(0, len(img)):
 		for j in range(0, len(img[0])):

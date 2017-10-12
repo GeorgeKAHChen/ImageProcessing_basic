@@ -329,3 +329,54 @@ def MCHE(img):
 			break
 	return img
 
+
+"""
+def MF(img):
+	for leng in range(1, 50)
+		for i in range(0, len(img)):
+			for j in range(0, len(img[i])):
+				SortImg = []
+				head = 0
+				for p in range(-leng, leng+1):
+					for q in range(-leng, leng+1):
+						try:
+							Saving = [img[i+p][j+p], p, q, 0]
+						except:
+							continue
+
+						if len(SortImg) == 0:
+							SortImg.append(Saving)
+							continue
+						walk = head
+						while 1:
+							if head == -1:
+								break
+							else:
+								pass
+
+
+def SNMF(img):
+	#Symmetric neighbor smoothing filter.
+	Reimg = [[0 for n in range(len(img[1]))] for n in range(len(img))]
+	for i in range(0, len(img)):
+		for j in range(0, len(img[i])):
+			AnoImg = []
+			Error = False
+			for p in range(-1, 2):
+				for q in range(-1, 2):
+					try:
+						AnoImg.append(img[i+p][j+q])
+					except:	
+						Error =True
+				if Error == True:
+					brewk
+			if Error == True:
+				continue
+
+			else:
+				
+
+"""
+
+				
+

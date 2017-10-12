@@ -95,27 +95,84 @@ def GT(img):
 	img1 [0][0] = 0
 	for i in range(0, len(img)):
 		if (i+1) < len(img):
-			if (abs(img[i+1][0] - img[i][0])) > 4:
-				if img[i][j] == 0:
-					img1[i+1][0] = 255
-				else:
-					img1[i+1][0] = 0
+			if (abs(img[i+1][0] - img1[i][0])) > 170:
+				img1[i+1][0] = 255 - img1[i][0]
 			else:
-				img1[i+1][j] = img1[i][j]
+				img1[i+1][0] = img1[i][0]
 
 	for i in range(0, len(img)):
 		for j in range(0, len(img[i])):
 			try:
-				if (abs(img[i][j+1] - img[i][j])) > 4:
-					if img1[i][j] == 0:
-						img1[i][j+1] = 255
-					else:
-						img1[i][j+1] = 0
+				if (abs(img[i][j+1] - img1[i][j])) > 170:
+					img1[i][j+1] = 255 - img[i][j]
 				else:
 					img1[i][j+1] = img1[i][j]
 			except:
 				continue
 	Init.LogWrite("Gradient Figure Calculation succeed", "0")
 	return img1
+
+
+def GTA(img):
+	#Not GTA5!
+	img1 = [[0 for n in range(len(img[0])+10)] for n in range(len(img) + 10)]
+	Remimg = [[0 for n in range(len(img[0])+10)] for n in range(len(img) + 10)]
+	
+	if img[0][0] >= 128:
+		img1[0][0] = 255
+	else:
+		img1[0][0] = 0
+	
+	def DFS(i, j, ia, ja):
+		if i + ia >= len(img) or j + ja >= len(img[0]):
+			return
+		if Remimg[i+ia][j+ja] != 0:
+			return
+		
+		Remimg[i+ia][j+ja] = 1
+		
+		if abs(img[i][j] - img[i+ia][j+ja]) > 32:
+			img1[i+ia][j+ja] = 255 - img1[i][j]
+			return	
+		img1[i+ia][j+ja] = img1[i][j]
+		DFS(i+ia, j+ja, 0, 1)
+		DFS(i+ia, j+ja, 1, 0)
+
+	while 1:
+		for i in range(0, len(img)):
+			for j in range(0, len(img[0])):
+				if Remimg[i][j] == 0:
+					DFS(i, j, 0, 1)
+					DFS(i, j, 1, 0)
+
+		break
+
+	return img1
+
+
+def TGT(img):
+	#2 side gradient transform get boundary
+	img1 = [[0 for n in range(len(img[0])+10)] for n in range(len(img) + 10)]
+	for i in range(0, len(img)):
+		for j in range(0, len(img[i])):
+			try:
+				Gra = max(abs(img[i][j] - img[i+1][i]), abs(img[i][j] - img[i][j+1]))
+			except:
+				continue
+			if Gra > 200:
+				img1[i][j] = 255
+			else:
+				img1[i][j] = 0
+
+	return img1
+
+
+
+
+
+
+
+
+
 
 

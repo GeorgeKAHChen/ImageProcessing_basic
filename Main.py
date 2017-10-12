@@ -102,7 +102,7 @@ def Output(img):
 		misc.imsave(Name, img)
 		if not os.path.exists("Output"):
 			os.system("mkdir Output")
-		os.system("mv " + Name + " Output/" + Name)
+		os.system("mv " + Name + " Output/" + Name + ".png")
 	return
 
 
@@ -186,6 +186,8 @@ def MainFunction(kind, Remimg):
 	print("10) Monte Carlo Average Constrast")
 	print("11) Convolution")
 	print("12) Histogram Equalization with Monte Carlo")
+	print("13) Gradient transformation Algorithm (GTA!)")
+	print("14) 2 Side Gradient Treasholding with DFS")
 	print("0)　EXIT")
 	InpInt = 0
 	while 1:
@@ -237,8 +239,12 @@ def MainFunction(kind, Remimg):
 		img = Convolution.Convolution(img)
 	if InpInt == 12:
 		img = Algorithm.MCHE(img)
+	if InpInt == 13:
+		img = GradFig.GTA(img)
+	if InpInt == 14:
+		img = GradFig.TGT(img)
 	Output(img)
-	InpStr = input("Use the new figure?")
+	InpStr = input("Use the new figure?[Y/n]  ")
 	if InpStr == "Y" or InpStr == "y":
 		Remimg = img.copy()
 
