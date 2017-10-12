@@ -34,3 +34,8 @@ Althrough homeworks can work in the Windows System, The main program with paper 
 <b>New Functions:</b><br/>
 1  Convolution Function with fft and ifft algorithm<br/>
 2  Two Monte Carlo Algorithm for the paritical of figure (Actually not very ideal)<br/>
+<br/><h2>Ver 1.03</h2><br/>
+1  Add some kernel of convolution<br/>
+2  Add another kind of Gradient transformation Algorithm<br/>
+3  Add the 2 Side Gradient Treasholding with DFS<br/>
+4  Repair some of bugs<br/>
