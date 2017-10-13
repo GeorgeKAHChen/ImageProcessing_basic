@@ -40,3 +40,12 @@ Althrough homeworks can work in the Windows System, The main program with paper 
 2  Add another kind of Gradient transformation Algorithm<br/>
 3  Add the 2 Side Gradient Treasholding with DFS<br/>
 4  Repair some of bugs<br/>
+<br/><h2>Ver 1.04</h2><br/>
+<b>New Functions:</b><br/>
+1  Median Filtering<br/>
+2  Sobel 3 * 3 cross edge detection operator<br/>
+3  Roberts cross edge detection operator<br/>
+4  Gradient Treasholding with Convolution<br/>
+5  The smallest variance smoothing filter<br/>
+6  Add the norma Convolution method<br/>
+<b>Waring:</b> We found a new bug about FFT-IFFT Convolution. Up to now, we still cannot understand why the result of FFT-IFFT Convolution is different from Normal Convolution.<br/>
