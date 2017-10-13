@@ -17,11 +17,13 @@ import math
 import matplotlib.patches as patches
 from scipy import misc
 from collections import deque
+from PIL import ImageFilter
 
 #import files
 import GradFig
 import Init
 import Proj1
+import Proj2
 import TimeCal
 import Algorithm
 import Convolution
@@ -188,6 +190,11 @@ def MainFunction(kind, Remimg):
 	print("12) Histogram Equalization with Monte Carlo")
 	print("13) Gradient transformation Algorithm (GTA!)")
 	print("14) 2 Side Gradient Treasholding with DFS")
+	print("15) Median Filtering")
+	print("16) Sobel 3 * 3 cross edge detection operator")
+	print("17) Roberts cross edge detection operator")
+	print("18) Gradient Treasholding with Convolution")
+	print("19) The smallest variance smoothing filter")
 	print("0)　EXIT")
 	InpInt = 0
 	while 1:
@@ -243,6 +250,16 @@ def MainFunction(kind, Remimg):
 		img = GradFig.GTA(img)
 	if InpInt == 14:
 		img = GradFig.TGT(img)
+	if InpInt == 15:
+		img = Proj2.MF(img)
+	if InpInt == 16:
+		img = Proj2.SO(img)
+	if InpInt == 17:
+		img = Proj2.RO(img)
+	if InpInt == 18:
+		img = Proj2.GOC(img)
+	if InpInt == 19:
+		img = Proj2.SVSF(img)
 	Output(img)
 	InpStr = input("Use the new figure?[Y/n]  ")
 	if InpStr == "Y" or InpStr == "y":

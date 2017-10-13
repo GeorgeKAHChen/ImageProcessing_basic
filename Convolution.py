@@ -6,6 +6,9 @@
 #=================================================================
 #Just For Convolution
 #import head
+ 
+
+#import files
 from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
@@ -43,6 +46,76 @@ def D2FFT(InpX, InpK):
 	return B
 
 
+def NormalConvolution(img, kernel):
+	CenX = 0
+	CenY = 0
+	NegX = 0
+	NegY = 0
+	PosX = 0
+	PosY = 0
+	img1 = [[0 for n in range(len(img[0]))]for n in range(len(img))]
+
+	if len(kernel) % 2 == 1 and len(kernel[0]) % 2 == 1:
+		CenX = int((len(kernel)-1)/2+0.5)
+		CenY = int((len(kernel[0])-1)/2+0.5)
+	else:
+		for i in range(0, len(kernel)):
+			for j in range(0, len(kernel[i])):
+				print(kernel[i][j], end = "\t")
+			print()
+		print()
+		while 1:
+			InpStr = input("Now input the row of array:  ")
+			try:
+				CenX = int(InpStr)
+			except:
+				print("Input Error")
+				continue
+			else:
+				if CenX < 0 or CenX >= len(kernel):
+					print("Input Error")
+					continue	
+				else:
+					break
+
+		while 1:
+			InpStr = input("Now input the column of array:  ")
+			try:
+				CenY = int(InpStr)
+			except:
+				print("Input Error")
+				continue
+			else:
+				if CenY < 0 or CenY >= len(kernel):
+					print("Input Error")
+					continue	
+				else:
+					break								
+
+	NegX = -CenX
+	NegY = -CenY
+	PosX = len(kernel) - CenX
+	PosY = len(kernel[0]) - CenY
+
+	for i in range(0, len(img)):
+		for j in range(0, len(img[i])):
+			#print([i, j])
+			for p in range(NegX, PosX):
+				for q in range(NegY, PosY):
+					Tem = 0
+					try:
+						if i+p >= 0 and j+q >= 0:
+							Tem = img[i+p][j+q]
+					except:
+						Tem = 0
+
+					img1[i][j] += Tem * kernel[CenX+p][CenY+q]
+			#print(img1[i][j])
+			img1[i][j] = min(255, int(img1[i][j]))
+	
+	return img1
+
+
 def Convolution(img):
 	os.system('clear')
 	Kernel = None
@@ -61,8 +134,8 @@ def Convolution(img):
 	print("11) [[1, -1]]")
 	print("12) [[0, 1], [-1, 0]]")
 	print("13) [[1, 0], [0, -1]]")
-	print("14)")
-	print("15)")
+	print("14) [[1, 1, 1,], [0, 0, 0], [-1, -1, -1]]")
+	print("15) [[1, 0, -1], [1, 0, -1], [1, 0, -1]]")
 	print("0)  EXIT")
 	while 1:
 		InpStr = input("Input the kernal number you need:  ")
@@ -113,13 +186,43 @@ def Convolution(img):
 		#Kernel = np.array([[]])
 		#Kernel = np.array([[]])
 		#Kernel = np.array([[]])
-	NewImg = D2FFT(img, Kernel)
+	
+	InpInt = 0
+	print("1)  Normal Convolution method")
+	print("2)  FFT-IFFT Method")
+
+	while 1:
+		InpStr = input("Now input the way to convolution:  ")
+		try:
+			InpInt = int(InpStr)
+		except:
+			print("Input Error")
+			continue
+		else:
+			if InpInt < 0 or InpInt > 2:
+				print("Input Error")
+				continue	
+			else:
+				break
+
+	if InpInt == 1:
+		img = NormalConvolution(img, Kernel)
+	else:
+		NewImg = D2FFT(img, Kernel)
+		for i in range(0, len(img)):
+			for j in range(0, len(img[0])):
+				try:
+					img[i][j] = NewImg[i+1][j+1] 
+				except:
+					print("Error")
+					return [0]
+	print("Baka!")
 	for i in range(0, len(img)):
-		for j in range(0, len(img[0])):
-			try:
-				img[i][j] = NewImg[i+1][j+1] 
-			except:
-				img[i][j] = img[i][j]
+		for j in range(0, len(img[i])):
+			print(img[i][j], end = "\t")
+		print()
+
+
 	return img
 
 

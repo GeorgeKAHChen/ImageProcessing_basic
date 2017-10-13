@@ -159,7 +159,7 @@ def TGT(img):
 				Gra = max(abs(img[i][j] - img[i+1][i]), abs(img[i][j] - img[i][j+1]))
 			except:
 				continue
-			if Gra > 200:
+			if Gra >= 200:
 				img1[i][j] = 255
 			else:
 				img1[i][j] = 0
