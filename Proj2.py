@@ -42,16 +42,33 @@ def MF(img):
 	return img1
 
 def SO(img):
+	InpInt = 0
+	while 1:
+		InpStr = input("Now input the tresholding variable:  ")
+		try:
+			InpInt = int(InpStr)
+		except:
+			print("Inpur Error")
+			continue
+		else:
+			if InpInt < 0 or InpInt > 255:
+				print("Input Error")
+				continue
+			else:
+				break
+
 	img1 = [[0 for n in range(len(img[0]))] for n in range(len(img))]
 	img2 = [[0 for n in range(len(img[0]))] for n in range(len(img))]
 	Reimg = [[0 for n in range(len(img[0]))] for n in range(len(img))]
+
 	kernel = np.array([[-1, -2, -1], [0, 0, 0], [1, 2, 1]])
-	img1 = Convolution.NormalConvolution(img,kernel)	
+	img1 = Convolution.D2FFT(img,kernel)	
 	kernel = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])
-	img2 = Convolution.NormalConvolution(img,kernel)
+	img2 = Convolution.D2FFT(img,kernel)
+	
 	for i in range(0, len(img)):
 		for j in range(0, len(img[i])):
-			if math.sqrt(img1[i][j]*img1[i][j]+img2[i][j]*img2[i][j]) > 200:
+			if math.sqrt(img1[i][j]*img1[i][j]+img2[i][j]*img2[i][j]) > InpInt:
 				Reimg[i][j] = 0
 			else:
 				Reimg[i][j] = 1

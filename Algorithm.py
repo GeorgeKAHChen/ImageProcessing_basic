@@ -17,7 +17,7 @@ import math
 import matplotlib.patches as patches
 from scipy import misc
 from collections import deque
-
+import random
 
 #import files
 import GradFig
@@ -25,6 +25,7 @@ import Init
 import Proj1
 import MTRand
 import TimeCal
+import Convolution
 
 
 def Algorithm(img):
@@ -329,8 +330,47 @@ def MCHE(img):
 			break
 	return img
 
-
 """
+def CED(img):
+	#Canny edge detector
+	#Step 1
+	Kernel = np.array([[2, 4, 5, 4, 2], [4, 9, 12, 9, 4], [5, 12, 15, 12, 5], [4, 9, 12, 9, 4], [2, 4, 5, 4, 2]]) / 115
+	img = Convolution.D2FFT(img, Kernel)
+	
+	img1 = [[0 for n in range(len(img[0]))] for n in range(len(img))]
+	img2 = [[0 for n in range(len(img[0]))] for n in range(len(img))]
+	Dir = [[0 for n in range(len(img[0]))] for n in range(len(img))]
+	Reimg = [[0 for n in range(len(img[0]))] for n in range(len(img))]
+
+	#Step 2
+	PI = 3.1415926535897932384626
+	kernel = np.array([[-1, -2, -1], [0, 0, 0], [1, 2, 1]])
+	img1 = Convolution.D2FFT(img,kernel)	
+	kernel = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])
+	img2 = Convolution.D2FFT(img,kernel)
+	Treasholding = 50
+	for i in range(0, len(img)):
+		for j in range(0, len(img[i])):
+			Ang = math.atan(img1[i][j]/img2[i][j])
+			if Ang <= PI/8 or (Ang > 7*PI/8 and Ang < 9*PI/8) or Ang > 15*PI/8:
+				Dir[i][j] = 0
+			if (Ang > PI/8 and Ang <= 3*PI/8) or (Ang > 9*PI/8 and Ang <= 11*PI/8):
+				Dir[i][j] = PI/4
+			if (Ang > 3*PI/8 and Ang <= 5*PI/8) or (Ang > 11*PI/8 and Ang <= 13*PI/8):
+				Dir[i][j] = PI/2
+			else:
+				Dir[i][j] = 3*PI/4
+				
+			Dir[i][j] = 
+			if math.sqrt(img1[i][j]*img1[i][j]+img2[i][j]*img2[i][j]) > Treasholding:
+				img[i][j] = 0
+			else:
+				img[i][j] = 1
+
+
+	return img
+
+
 def MF(img):
 	for leng in range(1, 50)
 		for i in range(0, len(img)):
@@ -378,5 +418,88 @@ def SNMF(img):
 
 """
 
-				
+def RWPI(img):
+	alpha = 1.00
+	beta = 1.00
+	e = 2.71828182846
+	Reimg = [[0 for n in range(len(img[1]))] for n in range(len(img))]
+	Point = [[0, 0] for n in range(10)]
+	for i in range(0, len(Point)):
+		Point[i][0] = random.randint(5, len(img)-5)
+		Point[i][1] = random.randint(5, len(img[1])-5)
+	Kase = 0
+	Pre = 0
+	while 1:
+		if Kase == len(img) * len(img[i]):
+			break
+		else:
+			Kase += 1
+
+		if Pre != int(100 * Kase / (len(img) * len(img[i]))):
+			Pre += 1
+			print(str(Pre) + "%")
+
+		for m in range(0, len(Point)):
+			i = Point[m][0]
+			j = Point[m][1]
+			#print([i, j])
+			Reimg[i][j] += 1
+			NewLoc = []
+			for p in range(-1, 2):
+				for q in range(-1, 2):
+					Step = [0.00, 0, p, q]
+					if p == 0 and q == 0:
+						continue
+					else:
+						try:
+							Step[1] = abs(img[i][j] - img[i+p][j+q])
+						except:
+							continue
+					Step[0] = pow(e, (-((abs(p)+abs(q))/alpha) - (Step[1]/beta)))
+					NewLoc.append(Step)
+			TTL = 0.00
+			for i in range(0, len(NewLoc)):
+				TTL += NewLoc[i][0]
+			Maxx = int(TTL)
+			Num = random.randint(0, Maxx)
+			TTL2 = 0
+			Final = 0
+			for i in range(0, len(NewLoc)):
+				TTL2 += NewLoc[i][0]
+				if TTL2 >= Num:
+					Final = i
+					break
+			Point[m][0] += NewLoc[Final][2]
+			Point[m][1] += NewLoc[Final][3]
+
+	for i in range(0, len(Reimg)):
+		for j in range(0, len(Reimg[i])):
+			if Reimg[i][j] != 0:
+				Reimg[i][j] = 255
+	return Reimg
+
+	mini = 99999999
+	maxi = 0
+	for i in range(0, len(Reimg)):
+		for j in range(0, len(Reimg[i])):
+			mini = min(Reimg[i][j], mini)
+			maxi = max(Reimg[i][j], maxi)
+
+	for i in range(0, len(Reimg)):
+		for j in range(0, len(Reimg[i])):
+			Reimg[i][j] = int((Reimg[i][j] - mini)/(maxi-mini) * 255)
+
+	return Reimg
+
+
+
+
+
+
+
+
+
+
+
+
 

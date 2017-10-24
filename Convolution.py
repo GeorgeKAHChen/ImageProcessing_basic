@@ -37,12 +37,14 @@ def D2FFT(InpX, InpK):
 		for j in range(0, len(InpK[i])):
 			ArrK[i][j] = InpK[i][j]
 
-	print(ArrX)
-	print(ArrK)
 	FFTX = np.fft.fft2(ArrX)
 	FFTK = np.fft.fft2(ArrK)
 	FFTXK = FFTX * FFTK
 	B = np.fft.ifft2(FFTXK).real
+	for i in range(0, len(B)):
+		for j in range(0, len(B[i])):
+			B[i][j] = min(255, B[i][j])
+			B[i][j] = max(0, B[i][j])
 	return B
 
 
@@ -112,6 +114,7 @@ def NormalConvolution(img, kernel):
 					img1[i][j] += Tem * kernel[CenX+p][CenY+q]
 			#print(img1[i][j])
 			img1[i][j] = min(255, int(img1[i][j]))
+			img1[i][j] = max(0, int(img1[i][j]))
 	
 	return img1
 
@@ -123,19 +126,33 @@ def Convolution(img):
 	InpInt = 0
 	print("1)  [[1, 1, 1], [1, 1, 1], [1, 1, 1]] / 9")
 	print("2)  [[1, 1, 1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1]] / 25")
+	print()
 	print("3)  [[1, 1, 1], [1, 2, 1], [1, 1, 1]] / 10")
 	print("4)  [[1, 2, 1], [2, 4, 2], [1, 2, 1]] / 16")
 	print("5)  [[1, 1, 1], [1, 0, 1], [1, 1, 1]] / 9")
+	print()
 	print("6)  [[1, 4, 7, 4, 1], [4, 16, 26, 16, 4], [7, 26, 41, 26, 7], [4, 16, 26, 16, 4],[1, 4, 7, 4, 1]] / 273")
+	print()
 	print("7)  [[-1, -2, -1], [0, 0, 0], [1, 2, 1]]")
 	print("8)  [[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]]")
+	print()
 	print("9)  [[1 * 129] * 129]]")
+	print()
 	print("10) [[1], [-1]]")
 	print("11) [[1, -1]]")
 	print("12) [[0, 1], [-1, 0]]")
 	print("13) [[1, 0], [0, -1]]")
+	print()
 	print("14) [[1, 1, 1,], [0, 0, 0], [-1, -1, -1]]")
 	print("15) [[1, 0, -1], [1, 0, -1], [1, 0, -1]]")
+	print()
+	print("16) [[0, 1, 0], [1, -4, 1], [0, 1, 0]]")
+	print("17) [[1, 1, 1], [1, -8, 1], [1, 1, 1]]")
+	print("18) [[0, 0, 1, 0, 0], [0, 1, 2, 1, 0], [1, 2, -16, 2, 1], [0, 1, 2, 1, 0], [0, 0, 1, 0 ,0]]")
+	print("19) [[2, 4, 5, 4, 2], [4, 9, 12, 9, 4], [5, 12, 15, 12, 5], [4, 9, 12, 9, 4], [2, 4, 5, 4, 2]]")
+	print()
+	print("20) High-boost [0, -1, 0], [-1, 8, -1], [0, -1, 0]")
+	print("21) High-boost [-1, -1, -1], [-1, 16, -1], [-1, -1, -1]")
 	print("0)  EXIT")
 	while 1:
 		InpStr = input("Input the kernal number you need:  ")
@@ -145,7 +162,7 @@ def Convolution(img):
 			print("Input Error")
 			continue
 		else:
-			if InpInt < 0 or InpInt > 20:
+			if InpInt < 0 or InpInt > 30:
 				print("Input Error")
 				continue
 			else:
@@ -169,7 +186,7 @@ def Convolution(img):
 	if InpInt == 8:
 		Kernel = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])
 	if InpInt == 9:
-		Kernel = np.array([[1 for n in range(15)] for n in range(15)])/15
+		Kernel = np.array([[1 for n in range(129)] for n in range(129)])/129
 	if InpInt == 10:
 		Kernel = np.array([[1], [-1]])
 	if InpInt == 11:
@@ -182,11 +199,21 @@ def Convolution(img):
 		Kernel = np.array([[1, 1, 1,], [0, 0, 0], [-1, -1, -1]])
 	if InpInt == 15:
 		Kernel = np.array([[1, 0, -1], [1, 0, -1], [1, 0, -1]])
+	if InpInt == 16: 
+		Kernel = np.array([[0, 1, 0], [1, -4, 1], [0, 1, 0]])
+	if InpInt == 17:
+		Kernel = np.array([[1, 1, 1], [1, -8, 1], [1, 1, 1]])
+	if InpInt == 18:
+		Kernel = np.array([[0, 0, 1, 0, 0], [0, 1, 2, 1, 0], [1, 2, -16, 2, 1], [0, 1, 2, 1, 0], [0, 0, 1, 0 ,0]])
+	if InpInt == 19:
+		Kernel = np.array([[2, 4, 5, 4, 2], [4, 9, 12, 9, 4], [5, 12, 15, 12, 5], [4, 9, 12, 9, 4], [2, 4, 5, 4, 2]]) / 115
+	if InpInt == 20:
+		Kernel = np.array([[0, -1, 0], [-1, 8, -1], [0, -1, 0]])
+	if InpInt == 21:
+		Kernel = np.array([[-1, -1, -1], [-1, 16, -1], [-1, -1, -1]])
 		#Kernel = np.array([[]])
 		#Kernel = np.array([[]])
-		#Kernel = np.array([[]])
-		#Kernel = np.array([[]])
-	
+	"""
 	InpInt = 0
 	print("1)  Normal Convolution method")
 	print("2)  FFT-IFFT Method")
@@ -216,13 +243,16 @@ def Convolution(img):
 				except:
 					print("Error")
 					return [0]
-	print("Baka!")
+	"""
+	NewImg = D2FFT(img, Kernel)
 	for i in range(0, len(img)):
-		for j in range(0, len(img[i])):
-			print(img[i][j], end = "\t")
-		print()
-
-
+		for j in range(0, len(img[0])):
+			try:
+				img[i][j] = NewImg[i+1][j+1] 
+			except:
+				print("Error")
+				return [0]
+	
 	return img
 
 

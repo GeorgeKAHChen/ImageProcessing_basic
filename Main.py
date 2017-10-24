@@ -27,7 +27,7 @@ import Proj2
 import TimeCal
 import Algorithm
 import Convolution
-
+import Proj3
 #return img array: the array of the figure
 #return -1 : exit or no figure
 def FigureInput():
@@ -104,7 +104,7 @@ def Output(img):
 		misc.imsave(Name, img)
 		if not os.path.exists("Output"):
 			os.system("mkdir Output")
-		os.system("mv " + Name + " Output/" + Name + ".png")
+		os.system("mv " + Name + " Output/" + Name)
 	return
 
 
@@ -195,6 +195,9 @@ def MainFunction(kind, Remimg):
 	print("17) Roberts cross edge detection operator")
 	print("18) Gradient Treasholding with Convolution")
 	print("19) The smallest variance smoothing filter")
+	print("20) Canny edge detector")
+	print("21) Random Walk Algorithm")
+	print("22) Unsharp masking")
 	print("0)　EXIT")
 	InpInt = 0
 	while 1:
@@ -205,7 +208,7 @@ def MainFunction(kind, Remimg):
 			print("Input Error")
 			continue
 		else:
-			if InpInt < -1 or InpInt > 20:
+			if InpInt < -1 or InpInt > 50:
 				print("Input Error")
 				continue
 			else:
@@ -260,6 +263,12 @@ def MainFunction(kind, Remimg):
 		img = Proj2.GOC(img)
 	if InpInt == 19:
 		img = Proj2.SVSF(img)
+	if InpInt == 20:
+		img = Algorithm.CED(img)
+	if InpInt == 21:
+		img = Algorithm.RWPI(img)
+	if InpInt == 22:
+		img = Proj3.UM(img)
 	Output(img)
 	InpStr = input("Use the new figure?[Y/n]  ")
 	if InpStr == "Y" or InpStr == "y":
