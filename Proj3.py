@@ -18,6 +18,7 @@ import matplotlib.patches as patches
 from scipy import misc
 from collections import deque
 from PIL import ImageFilter
+import cv2
 
 #import files
 import Convolution
@@ -29,7 +30,7 @@ def UM(img):
 	img1 = Convolution.D2FFT(img, Kernel)
 	for i in range(0, len(img)):
 		for j in range(0, len(img[i])):
-			img2[i][j] = img[i][j]-img1[i][j]
+			img2[i][j] = img[i][j] - img1[i][j]
 	for i in range(0, len(img)):
 		for j in range(0, len(img[i])):
 			img[i][j] = img[i][j] + img2[i][j]

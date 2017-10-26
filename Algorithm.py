@@ -18,6 +18,7 @@ import matplotlib.patches as patches
 from scipy import misc
 from collections import deque
 import random
+import cv2
 
 #import files
 import GradFig
@@ -330,10 +331,15 @@ def MCHE(img):
 			break
 	return img
 
-"""
+
 def CED(img):
 	#Canny edge detector
+	#With opencv method
+	return cv2.Canny(img,100,100)
+	
+	#Normal Code
 	#Step 1
+	"""
 	Kernel = np.array([[2, 4, 5, 4, 2], [4, 9, 12, 9, 4], [5, 12, 15, 12, 5], [4, 9, 12, 9, 4], [2, 4, 5, 4, 2]]) / 115
 	img = Convolution.D2FFT(img, Kernel)
 	
@@ -349,6 +355,8 @@ def CED(img):
 	kernel = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])
 	img2 = Convolution.D2FFT(img,kernel)
 	Treasholding = 50
+
+	#Step 3
 	for i in range(0, len(img)):
 		for j in range(0, len(img[i])):
 			Ang = math.atan(img1[i][j]/img2[i][j])
@@ -368,9 +376,11 @@ def CED(img):
 				img[i][j] = 1
 
 
+
 	return img
+	"""
 
-
+"""
 def MF(img):
 	for leng in range(1, 50)
 		for i in range(0, len(img)):
@@ -419,7 +429,7 @@ def SNMF(img):
 """
 
 def RWPI(img):
-	alpha = 1.00
+	alpha = 5.00
 	beta = 1.00
 	e = 2.71828182846
 	Reimg = [[0 for n in range(len(img[1]))] for n in range(len(img))]
@@ -429,6 +439,7 @@ def RWPI(img):
 		Point[i][1] = random.randint(5, len(img[1])-5)
 	Kase = 0
 	Pre = 0
+
 	while 1:
 		if Kase == len(img) * len(img[i]):
 			break

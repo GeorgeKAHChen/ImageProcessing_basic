@@ -24,10 +24,11 @@ import GradFig
 import Init
 import Proj1
 import Proj2
+import Proj3
 import TimeCal
 import Algorithm
 import Convolution
-import Proj3
+
 #return img array: the array of the figure
 #return -1 : exit or no figure
 def FigureInput():
