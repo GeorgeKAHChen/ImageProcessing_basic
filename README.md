@@ -11,6 +11,8 @@ Kazuki Amakawa<br/>
 By the way, you may need to install these packages<br/>
 pip3 install Pillow<br/>
 pip3 install matplotlib<br/>
+You may also need install opencv if you want to run these code normally. As the installing of opencv in different system are different, I cannot tell you all the method you need. However, if you are macos, you can install it with the method below<br/>
+https://www.pyimagesearch.com/2016/12/19/install-opencv-3-on-macos-with-homebrew-the-easy-way/<br/>
 <br/>
 And, it is confident that these can work without bug in the MacOS or Linux(or all Unix). Although it is can be compiled in Windows, I still not confident if they have any bug in Windows System, espacelly Windows10 (or Bug10)
 <br/>
