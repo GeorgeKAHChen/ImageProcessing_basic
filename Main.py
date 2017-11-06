@@ -18,6 +18,7 @@ import matplotlib.patches as patches
 from scipy import misc
 from collections import deque
 from PIL import ImageFilter
+import cv2
 
 #import files
 import GradFig
@@ -199,6 +200,8 @@ def MainFunction(kind, Remimg):
 	print("20) Canny edge detector")
 	print("21) Random Walk Algorithm")
 	print("22) Unsharp masking")
+	print("23) Block Algorithm")
+	print("24) Toboggan Algorithm")
 	print("0)　EXIT")
 	InpInt = 0
 	while 1:
@@ -270,6 +273,10 @@ def MainFunction(kind, Remimg):
 		img = Algorithm.RWPI(img)
 	if InpInt == 22:
 		img = Proj3.UM(img)
+	if InpInt == 23:
+		img = Proj3.BlockAlg(img)
+	if InpInt == 24:
+		img = Algorithm.TobAlgo(img)
 	Output(img)
 	InpStr = input("Use the new figure?[Y/n]  ")
 	if InpStr == "Y" or InpStr == "y":

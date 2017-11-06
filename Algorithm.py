@@ -335,7 +335,7 @@ def MCHE(img):
 def CED(img):
 	#Canny edge detector
 	#With opencv method
-	return cv2.Canny(img,100,100)
+	return cv2.Canny(img,100,200)
 	
 	#Normal Code
 	#Step 1
@@ -502,12 +502,75 @@ def RWPI(img):
 
 	return Reimg
 
+	
+def SobalOperator(img):
+	img1 = [[0 for n in range(len(img[0]))] for n in range(len(img))]
+	img2 = [[0 for n in range(len(img[0]))] for n in range(len(img))]
+	Reimg = [[0 for n in range(len(img[0]))] for n in range(len(img))]
+
+	kernel = np.array([[-1, -2, -1], [0, 0, 0], [1, 2, 1]])
+	img1 = Convolution.D2FFT(img,kernel)	
+	kernel = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])
+	img2 = Convolution.D2FFT(img,kernel)
+	
+	for i in range(0, len(img)):
+		for j in range(0, len(img[i])):
+			Reimg[i][j] = math.sqrt(pow(img1[i][j], 2) + pow(img2[i][j], 2))
+	
+	return Reimg
 
 
+def TobAlgo(img):
+	Gradient = SobalOperator(img)
+	SavArr = [[-1 for n in range(len(img[0]))] for n in range(len(img))]
+	Tem = 0
+	for i in range(1, len(SavArr)-1):
+		for j in range(1, len(SavArr[i])-1):
+			Tem += 1
+			if SavArr[i][j] != -1:
+				continue
+
+			Stack = [[i, j]]
+			
+			while 1:
+				if len(Stack) == 0:
+					break
+
+				Block = []
+				Vari = Stack[len(Stack)-1][0]
+				Varj = Stack[len(Stack)-1][1]
+				Stack.pop()
+				if SavArr[Vari][Varj] == -1:
+					SavArr[Vari][Varj] = Tem
+				else:
+					continue
+				print(Tem)
+
+				for p in range(-1, 2):
+					for q in range(-1, 2):
+						Poi = 0
+						try:
+							Poi = Gradient[Vari+p][Varj+q]
+						except:
+							continue
+						Block.append([Gradient[Vari+p][Varj+q], Vari+p, Varj+q])
+
+				Block.sort()
+				for k in range(0, len(Block)):
+					if SavArr[Block[k][1]][Block[k][2]] == -1:
+						Stack.append([Block[k][1], Block[k][2]])
+						break
 
 
+			
 
+	for i in range(len(SavArr)):
+		for j in range(len(SavArr[i])):
+			SavArr[i][j] = int(SavArr[i][j] / Tem * 255)
 
+	#SavArr = Proj1.MET(SavArr)
+
+	return SavArr
 
 
 
