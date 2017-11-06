@@ -51,3 +51,8 @@ Althrough homeworks can work in the Windows System, The main program with paper 
 5  The smallest variance smoothing filter<br/>
 6  Add the norma Convolution method<br/>
 <b>Waring:</b> We found a new bug about FFT-IFFT Convolution. Up to now, we still cannot understand why the result of FFT-IFFT Convolution is different from Normal Convolution.<br/>
+<br/><h2>Ver 1.05</h2><br/>
+<b>New Functions:</b><br/>
+1  Some new kernel and algoritm<br/>
+2  Compeleted some algorithm and repaired some bug<br/>
+3  Added a algorithm called Toboggan Algorithm(Not compeleted, just finished the part of part. Yes, the part of part)<br/>
