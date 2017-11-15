@@ -29,6 +29,7 @@ import TimeCal
 import Convolution
 
 
+
 def Algorithm(img):
 	SavingArr = deque()
 	NumArr = deque()
@@ -509,10 +510,13 @@ def SobalOperator(img):
 	Reimg = [[0 for n in range(len(img[0]))] for n in range(len(img))]
 
 	kernel = np.array([[-1, -2, -1], [0, 0, 0], [1, 2, 1]])
-	img1 = Convolution.D2FFT(img,kernel)	
+	img1 = Convolution.NormalConvolution(img,kernel)	
+	#Init.ArrOutput(img1)
+
 	kernel = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])
-	img2 = Convolution.D2FFT(img,kernel)
-	
+	img2 = Convolution.NormalConvolution(img,kernel)
+	#Init.ArrOutput(img2)
+
 	for i in range(0, len(img)):
 		for j in range(0, len(img[i])):
 			Reimg[i][j] = math.sqrt(pow(img1[i][j], 2) + pow(img2[i][j], 2))
@@ -520,18 +524,46 @@ def SobalOperator(img):
 	return Reimg
 
 
+
+def GOC(img):
+	img1 = [[0 for n in range(len(img[0]))] for n in range(len(img))]
+	img2 = [[0 for n in range(len(img[0]))] for n in range(len(img))]
+	Reimg = [[0 for n in range(len(img[0]))] for n in range(len(img))]
+	kernel = np.array([[-1, 1]])
+	img1 = Convolution.D2FFT(img,kernel)	
+	kernel = np.array([[1, -1]])
+	img2 = Convolution.D2FFT(img,kernel)
+	for i in range(0, len(img)):
+		for j in range(0, len(img[i])):
+			Reimg[i][j] = math.sqrt(img1[i][j]*img1[i][j]+img2[i][j]*img2[i][j])
+
+	return Reimg
+
+
 def TobAlgo(img):
-	Gradient = SobalOperator(img)
 	SavArr = [[-1 for n in range(len(img[0]))] for n in range(len(img))]
+	"""
+	Gradient = [[0 for n in range(len(img[0]))] for n in range(len(img))]
+	img1 = cv2.Sobel(img, cv2.CV_16S, 1, 0)
+	img2 = cv2.Sobel(img, cv2.CV_16S, 0, 1)
+	for i in range(0, len(img1)):
+		for j in range(0, len(img1[i])):
+			Gradient[i][j] = math.sqrt(pow(img1[i][j], 2)+pow(img2[i][j], 2))
+	"""
+	#Gradient = SobalOperator(img)
+	Gradient = GOC(img)
+
 	Tem = 0
+	Tem1 = -1
+	Color = [[0, 0]]
 	for i in range(1, len(SavArr)-1):
 		for j in range(1, len(SavArr[i])-1):
-			Tem += 1
 			if SavArr[i][j] != -1:
 				continue
 
 			Stack = [[i, j]]
-			
+			Tem += 1
+			Color.append([0, 0])
 			while 1:
 				if len(Stack) == 0:
 					break
@@ -542,9 +574,14 @@ def TobAlgo(img):
 				Stack.pop()
 				if SavArr[Vari][Varj] == -1:
 					SavArr[Vari][Varj] = Tem
+					Color[len(Color)-1][0] += 1
+					Color[len(Color)-1][1] += img[i][j]
 				else:
 					continue
-				print(Tem)
+			
+				if Tem != Tem1:
+					print("Block:" + str(Tem), end = "\r")
+					Tem1 = Tem
 
 				for p in range(-1, 2):
 					for q in range(-1, 2):
@@ -560,15 +597,16 @@ def TobAlgo(img):
 					if SavArr[Block[k][1]][Block[k][2]] == -1:
 						Stack.append([Block[k][1], Block[k][2]])
 						break
+	#Init.ArrOutput(SavArr)
+	#print(Color)
+	Iro = [0]
+	for i in range(1, len(Color)):
+		Iro.append(int(Color[i][1]/Color[i][0]))
 
-
-			
-
-	for i in range(len(SavArr)):
-		for j in range(len(SavArr[i])):
-			SavArr[i][j] = int(SavArr[i][j] / Tem * 255)
-
-	#SavArr = Proj1.MET(SavArr)
+	#print(Iro)
+	for i in range(0, len(SavArr)):
+		for j in range(0, len(SavArr[i])):
+			SavArr[i][j] = Iro[SavArr[i][j]]
 
 	return SavArr
 

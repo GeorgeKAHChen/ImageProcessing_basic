@@ -67,6 +67,7 @@ def GetTime():
 	ReturnTime *= 10000
 	DokiStr = ''
 	Kanryou = 0
+	Jikan[2] += ":"
 	for i in range (0, len(Jikan[2])):
 		if Jikan[2][i] == ':':
 			Kanryou += 1

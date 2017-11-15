@@ -17,35 +17,52 @@ import os.path
 import math
 import matplotlib.patches as patches
 from scipy import misc
+from scipy import signal
 from collections import deque
+import time
 
 #import files
-
+import Init
+import os
 
 def D2FFT(InpX, InpK):
+	return signal.fftconvolve(InpX, InpK[::-1], mode='full')
+	"""
+	LenX = len(InpX[0])
+	LenY = len(InpX)
+	ArrK = np.array([[0.00 for n in range(LenX)] for m in range(LenY)])
+	C = [[0 for n in range(LenX)] for n in range(LenY)]
+	for i in range(0, len(InpK)):
+		for j in range(0, len(InpK[i])):
+			ArrK[i][j] = InpK[i][j]
+	
 	LenX = pow(2, int( math.log2( len(InpX[0]) + len(InpK[0]) ) ) + 1)
 	LenY = pow(2, int( math.log2( len(InpX) + len(InpK) ) ) + 1)
 
 	ArrX = np.array([[0.00 for n in range(LenX)] for m in range(LenY)])
-	ArrK = np.array([[0.00 for n in range(LenX)] for m in range(LenY)])
+	
 	
 	for i in range(0, len(InpX)):
 		for j in range(0, len(InpX[i])):
 			ArrX[i][j] = InpX[i][j]
 
-	for i in range(0, len(InpK)):
-		for j in range(0, len(InpK[i])):
-			ArrK[i][j] = InpK[i][j]
-
+	
+	ArrX = InpX
 	FFTX = np.fft.fft2(ArrX)
+	Init.ArrOutput(FFTX)
 	FFTK = np.fft.fft2(ArrK)
+	time.sleep(10)
+	Init.ArrOutput(FFTK)
 	FFTXK = FFTX * FFTK
 	B = np.fft.ifft2(FFTXK).real
 	for i in range(0, len(B)):
 		for j in range(0, len(B[i])):
 			B[i][j] = min(255, B[i][j])
 			B[i][j] = max(0, B[i][j])
-	return B
+			C[i][j] = int(B[i][j])
+	Init.ArrOutput(C)
+	return C
+	"""
 
 
 def NormalConvolution(img, kernel):
@@ -98,9 +115,15 @@ def NormalConvolution(img, kernel):
 	NegY = -CenY
 	PosX = len(kernel) - CenX
 	PosY = len(kernel[0]) - CenY
-
+	Ima = -1
 	for i in range(0, len(img)):
 		for j in range(0, len(img[i])):
+			
+			if Ima != int((i*len(img) + j)/( (len(img)-1)*(len(img[1])-1) ) * 100/0.83):
+				if Ima <= 100:
+					Ima = int((i*len(img) + j)/( (len(img)-2)*(len(img[1])-2) ) * 100/0.83)
+					print("Convolution: " + str(Ima) + "%", end = "\r")
+
 			#print([i, j])
 			for p in range(NegX, PosX):
 				for q in range(NegY, PosY):
@@ -115,7 +138,8 @@ def NormalConvolution(img, kernel):
 			#print(img1[i][j])
 			img1[i][j] = min(255, int(img1[i][j]))
 			img1[i][j] = max(0, int(img1[i][j]))
-	
+	if Ima <= 100:
+		print("Convolution: 100%")
 	return img1
 
 
@@ -252,7 +276,7 @@ def Convolution(img):
 			except:
 				print("Error")
 				return [0]
-	
+	Init.ArrOutput(img)
 	return img
 
 

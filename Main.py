@@ -251,6 +251,7 @@ def MainFunction(kind, Remimg):
 		img = Algorithm.MCAC(img)
 	if InpInt == 11:
 		img = Convolution.Convolution(img)
+		Output(img)
 	if InpInt == 12:
 		img = Algorithm.MCHE(img)
 	if InpInt == 13:
@@ -277,7 +278,7 @@ def MainFunction(kind, Remimg):
 		img = Proj3.BlockAlg(img)
 	if InpInt == 24:
 		img = Algorithm.TobAlgo(img)
-	Output(img)
+		Output(img)
 	InpStr = input("Use the new figure?[Y/n]  ")
 	if InpStr == "Y" or InpStr == "y":
 		Remimg = img.copy()

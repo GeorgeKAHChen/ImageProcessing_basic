@@ -42,6 +42,7 @@ def MF(img):
 	return img1
 
 def SO(img):
+	"""
 	InpInt = 0
 	while 1:
 		InpStr = input("Now input the tresholding variable:  ")
@@ -56,7 +57,7 @@ def SO(img):
 				continue
 			else:
 				break
-
+	"""
 	img1 = [[0 for n in range(len(img[0]))] for n in range(len(img))]
 	img2 = [[0 for n in range(len(img[0]))] for n in range(len(img))]
 	Reimg = [[0 for n in range(len(img[0]))] for n in range(len(img))]
@@ -66,8 +67,16 @@ def SO(img):
 	kernel = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])
 	img2 = Convolution.D2FFT(img,kernel)
 	
+	Auto = []
 	for i in range(0, len(img)):
 		for j in range(0, len(img[i])):
+			Auto.append(img1[i][j]*img1[i][j]+img2[i][j]*img2[i][j])
+	sorted(Auto)
+
+	InpInt =  math.sqrt(Auto[int(len(Auto)/2)])
+	for i in range(0, len(img)):
+		for j in range(0, len(img[i])):
+			Auto.append(img1[i][j]*img1[i][j]+img2[i][j]*img2[i][j])
 			if math.sqrt(img1[i][j]*img1[i][j]+img2[i][j]*img2[i][j]) > InpInt:
 				Reimg[i][j] = 0
 			else:

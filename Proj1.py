@@ -20,6 +20,49 @@ from collections import deque
 import Init
 
 
+def MET(img):
+	METi = 0
+	METSum = -99999.00
+	Sum = [0 for n in range(260)]
+	Pro = [0.000 for n in range(260)]
+	ProSum = [0.000 for n in range(260)]
+	TTL = len(img) * len(img[0])
+
+	for i in range(0, len(img)):
+		for j in range(0, len(img[i])):
+			Sum[int(img[i][j])] += 1
+
+	for i in range(0, len(Sum)):
+		Pro[i] = Sum[i] / TTL
+		if i != 0:
+			ProSum[i] = ProSum[i-1] + Pro[i]
+		else:
+			ProSum[i] = Pro[i]
+
+	for i in range(0, len(ProSum)):
+		Ent = 0
+		for j in range(0, len(Pro)):
+			if Pro[j] == 0:
+				continue
+			if j <= i:
+				Ent -= (Pro[j]/ProSum[i] * math.log(Pro[j]/ProSum[i]+0.001))
+			else:
+				Ent -= (Pro[j]/(1-ProSum[i]) * math.log(Pro[j]/(1-ProSum[i])+0.001))
+
+		if Ent > METSum:
+			METi = i
+			METSum = Ent
+	print("argmax = " + str(METi))
+	for i in range(0, len(img)):
+		for j in range(0, len(img[i])):
+			if img[i][j] <= METi:
+				img[i][j] = 0
+			else:
+				img[i][j] = 255
+	Init.LogWrite("MET calculation succeed", "0")
+	return img
+
+
 def NO(img):
 	for i in range(0, len(img)):
 		for j in range(0, len(img[i])):

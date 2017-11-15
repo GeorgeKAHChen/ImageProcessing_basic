@@ -18,11 +18,10 @@ import matplotlib.patches as patches
 from scipy import misc
 from collections import deque
 from PIL import ImageFilter
-import cv2
 
 #import files
 import Convolution
-
+import Proj2
 def UM(img):
 	#Unsharp masking and high-boost filtering
 	Kernel = np.array([[1, 1, 1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1]]) / 25
@@ -35,3 +34,34 @@ def UM(img):
 		for j in range(0, len(img[i])):
 			img[i][j] = img[i][j] + img2[i][j]
 	return img
+
+def BlockAlg(img):
+	len1 = int(len(img) / 100)-1
+	len2 = int(len(img[0]) / 100)-1
+	
+	img2 = [[0 for n in range(len(img[0]))] for n in range(len(img))]
+	for i in range(0, len1):
+		for j in range(0, len2):
+			fig = [[0 for n in range(100)] for n in range(100)]
+			for p in range(0, len(fig)):
+				for q in range(0, len(fig[1])):
+					fig[p][q] = img[i*100+p][j*100+q]
+			Kernel = np.array([[1, 4, 7, 4, 1], [4, 16, 26, 16, 4], [7, 26, 41, 26, 7], [4, 16, 26, 16, 4],[1, 4, 7, 4, 1]]) / 273
+			fig = Convolution.D2FFT(fig, Kernel)
+			fig = Proj2.SO(fig)
+
+			for p in range(0, len(fig)):
+				for q in range(0, len(fig[p])):
+					img2[i*100+p][j*100+q] = fig[p][q]
+
+		print([i, len1])
+	return img2
+
+
+
+
+
+
+
+
+

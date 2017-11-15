@@ -4,6 +4,8 @@
 #Initialization file
 #Init.LogWrite(LogStr, kind)
 #Init.BuildFile(FileName)
+import TimeCal
+
 def LogWrite(LogStr, kind):
 	import os
 	import time 
@@ -46,5 +48,17 @@ def GetAveSqr(Arr):
 	return [TTL, Ave, Sqr]
 
 
+def ArrOutput(Arr):
+	FileName = "SaveArr" + str(TimeCal.GetTime())
+	BuildFile(FileName)
+	File = open(FileName, "a")
+	Str = ""
+	for i in range(0, len(Arr)):
+		for j in range(0, len(Arr[i])):
+			Str += str(Arr[i][j])
+			Str += "\t"
+		Str += "\n"
+	File.write(Str)
+	File.close()
 
 #================================================================================================================
