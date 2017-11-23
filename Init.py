@@ -61,4 +61,57 @@ def ArrOutput(Arr):
 	File.write(Str)
 	File.close()
 
-#================================================================================================================
+
+
+def IntInput(Str, Min, Max, Method):
+	Int = 0
+	NoMin = False
+	NoMax = False
+	try:
+		Min = int(Min)
+	except:
+		NoMin = True
+
+	try:
+		Max = int(Max)
+	except:
+		NoMax = True
+	
+	while 1:
+		InpStr = input(Str)
+		try:
+			if Method == "int":
+				Int = int(InpStr)
+			elif Method == "float":
+				Int = float(InpStr)
+		except:
+			print("Input Error")
+			continue
+		else:
+			if NoMin == True and NoMax == True:
+				break
+			
+			elif NoMin == True and NoMax == False:
+				if Int > Max:
+					print("Input Error")
+					continue
+				else:
+					break
+		
+			elif NoMin == False and NoMax == True:
+				if Int < Min:
+					print("Input Error")
+					continue
+				else:
+					break
+			else:
+				if Int < Min or Int > Max:
+					print("Input Error")
+					continue
+				else:
+					break
+	return Int
+
+
+
+

@@ -542,7 +542,7 @@ def GOC(img):
 
 def TobAlgo(img):
 	SavArr = [[-1 for n in range(len(img[0]))] for n in range(len(img))]
-	"""
+	
 	Gradient = [[0 for n in range(len(img[0]))] for n in range(len(img))]
 	img1 = cv2.Sobel(img, cv2.CV_16S, 1, 0)
 	img2 = cv2.Sobel(img, cv2.CV_16S, 0, 1)
@@ -551,8 +551,9 @@ def TobAlgo(img):
 			Gradient[i][j] = math.sqrt(pow(img1[i][j], 2)+pow(img2[i][j], 2))
 	"""
 	#Gradient = SobalOperator(img)
-	Gradient = GOC(img)
-
+	#Gradient = GOC(img)
+	#return Gradient
+	"""
 	Tem = 0
 	Tem1 = -1
 	Color = [[0, 0]]
@@ -603,6 +604,7 @@ def TobAlgo(img):
 	for i in range(1, len(Color)):
 		Iro.append(int(Color[i][1]/Color[i][0]))
 
+	print(Iro)
 	#print(Iro)
 	for i in range(0, len(SavArr)):
 		for j in range(0, len(SavArr[i])):

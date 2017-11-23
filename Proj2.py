@@ -73,7 +73,7 @@ def SO(img):
 			Auto.append(img1[i][j]*img1[i][j]+img2[i][j]*img2[i][j])
 	sorted(Auto)
 
-	InpInt =  math.sqrt(Auto[int(len(Auto)/2)])
+	InpInt =  math.sqrt(Auto[int(len(Auto))])
 	for i in range(0, len(img)):
 		for j in range(0, len(img[i])):
 			Auto.append(img1[i][j]*img1[i][j]+img2[i][j]*img2[i][j])

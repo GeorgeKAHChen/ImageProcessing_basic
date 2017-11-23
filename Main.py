@@ -26,6 +26,7 @@ import Init
 import Proj1
 import Proj2
 import Proj3
+import Proj4
 import TimeCal
 import Algorithm
 import Convolution
@@ -202,6 +203,8 @@ def MainFunction(kind, Remimg):
 	print("22) Unsharp masking")
 	print("23) Block Algorithm")
 	print("24) Toboggan Algorithm")
+	print("25) Linear PDE method")
+	print("26) Non-linear PDE method")
 	print("0)　EXIT")
 	InpInt = 0
 	while 1:
@@ -278,7 +281,11 @@ def MainFunction(kind, Remimg):
 		img = Proj3.BlockAlg(img)
 	if InpInt == 24:
 		img = Algorithm.TobAlgo(img)
-		Output(img)
+	if InpInt == 25:
+		img = Proj4.PDEMethod(img, 1)
+	if InpInt == 26:
+		img = Proj4.PDEMethod(img, 2)
+	Output(img)
 	InpStr = input("Use the new figure?[Y/n]  ")
 	if InpStr == "Y" or InpStr == "y":
 		Remimg = img.copy()
