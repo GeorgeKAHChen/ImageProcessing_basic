@@ -205,6 +205,7 @@ def MainFunction(kind, Remimg):
 	print("24) Toboggan Algorithm")
 	print("25) Linear PDE method")
 	print("26) Non-linear PDE method")
+	print("27) Bilateral Filter Smoothing")
 	print("0)　EXIT")
 	InpInt = 0
 	while 1:
@@ -285,6 +286,8 @@ def MainFunction(kind, Remimg):
 		img = Proj4.PDEMethod(img, 1)
 	if InpInt == 26:
 		img = Proj4.PDEMethod(img, 2)
+	if InpInt == 27:
+		img = cv2.bilateralFilter(img, 9, 35, 35)
 	Output(img)
 	InpStr = input("Use the new figure?[Y/n]  ")
 	if InpStr == "Y" or InpStr == "y":
