@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ############################################################
 #
 #		Some useful function
@@ -55,7 +54,7 @@ GetNextDay(Time, TimeAdd)
 	return Time+TimeAdd
 """
 
-=======
+
 #FileName = Init.py
 #Kazuki Amakawa
 
@@ -63,16 +62,13 @@ GetNextDay(Time, TimeAdd)
 #Init.LogWrite(LogStr, kind)
 #Init.BuildFile(FileName)
 import TimeCal
->>>>>>> bddf46ce81a0bc4d96bd5eaa33fcc72d4099bee9
 
 def LogWrite(LogStr, kind):
 	import os
 	import time 
-<<<<<<< HEAD
 	FileName = "CRIEA.log"
-=======
+
 	FileName = "IMP.log"
->>>>>>> bddf46ce81a0bc4d96bd5eaa33fcc72d4099bee9
 		
 	File = open(FileName, "a")
 	Ima = time.ctime()
@@ -95,8 +91,7 @@ def BuildFile(FileName):
 	LogWrite(Str, '0')
 
 
-<<<<<<< HEAD
-=======
+
 def GetAveSqr(Arr):
 	TTL = 0
 	for i in range(0, len(Arr)):
@@ -128,7 +123,6 @@ def ArrOutput(Arr):
 
 
 
->>>>>>> bddf46ce81a0bc4d96bd5eaa33fcc72d4099bee9
 def IntInput(Str, Min, Max, Method):
 	Int = 0
 	NoMin = False
@@ -180,7 +174,6 @@ def IntInput(Str, Min, Max, Method):
 
 
 
-<<<<<<< HEAD
 def GetTime():
 	import time
 	TimeStr = time.ctime()
@@ -311,6 +304,5 @@ def GetNextDay(Time, TimeAdd):
 
 	return (Year * 10000 + Mouth * 100 + Day)
 
-=======
->>>>>>> bddf46ce81a0bc4d96bd5eaa33fcc72d4099bee9
+
 
