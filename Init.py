@@ -55,10 +55,20 @@ GetNextDay(Time, TimeAdd)
 """
 
 
+#FileName = Init.py
+#Kazuki Amakawa
+
+#Initialization file
+#Init.LogWrite(LogStr, kind)
+#Init.BuildFile(FileName)
+import TimeCal
+
 def LogWrite(LogStr, kind):
 	import os
 	import time 
 	FileName = "CRIEA.log"
+
+	FileName = "IMP.log"
 		
 	File = open(FileName, "a")
 	Ima = time.ctime()
@@ -79,6 +89,38 @@ def BuildFile(FileName):
 		os.system("cat /dev/null > " + str(FileName))
 	Str = FileName + 'build succeed'
 	LogWrite(Str, '0')
+
+
+
+def GetAveSqr(Arr):
+	TTL = 0
+	for i in range(0, len(Arr)):
+		TTL += Arr[i]
+
+	Ave = TTL / len(Arr)
+
+	TTL2 = 0
+	for i in range(0, len(Arr)):
+		TTL2 += pow((Arr[i] - Ave), 2)
+	
+	Sqr = TTL2 / len(Arr)
+
+	return [TTL, Ave, Sqr]
+
+
+def ArrOutput(Arr):
+	FileName = "SaveArr" + str(TimeCal.GetTime())
+	BuildFile(FileName)
+	File = open(FileName, "a")
+	Str = ""
+	for i in range(0, len(Arr)):
+		for j in range(0, len(Arr[i])):
+			Str += str(Arr[i][j])
+			Str += "\t"
+		Str += "\n"
+	File.write(Str)
+	File.close()
+
 
 
 def IntInput(Str, Min, Max, Method):
@@ -261,5 +303,6 @@ def GetNextDay(Time, TimeAdd):
 			Year += 1
 
 	return (Year * 10000 + Mouth * 100 + Day)
+
 
 

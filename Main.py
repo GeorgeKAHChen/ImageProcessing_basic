@@ -19,6 +19,7 @@ from scipy import misc
 from collections import deque
 from PIL import ImageFilter
 import cv2
+import random 
 
 #import files
 import GradFig
@@ -27,6 +28,7 @@ import Proj1
 import Proj2
 import Proj3
 import Proj4
+import Proj5
 import TimeCal
 import Algorithm
 import Convolution
@@ -206,6 +208,8 @@ def MainFunction(kind, Remimg):
 	print("25) Linear PDE method")
 	print("26) Non-linear PDE method")
 	print("27) Bilateral Filter Smoothing")
+	print("28) Least square estimation")
+	print("29) Iterative solution")
 	print("0)　EXIT")
 	InpInt = 0
 	while 1:
@@ -288,6 +292,10 @@ def MainFunction(kind, Remimg):
 		img = Proj4.PDEMethod(img, 2)
 	if InpInt == 27:
 		img = cv2.bilateralFilter(img, 9, 35, 35)
+	if InpInt == 28:
+		img = Proj5.LSE(img)
+	if InpInt == 29:
+		img = Proj5.IS(img)
 	Output(img)
 	InpStr = input("Use the new figure?[Y/n]  ")
 	if InpStr == "Y" or InpStr == "y":

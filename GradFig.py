@@ -25,8 +25,8 @@ def StaFigPrint(ay, maxx):
 	ax = fig1.add_subplot(111)
 	
 	#x y lim setting	
-	plt.xlim(0, 256)
-	plt.ylim(0, maxx)
+	plt.xlim(-1, 270)
+	plt.ylim(0, maxx/10)
 
 	#Printing loop
 	for i in range(0, len(ay)):
