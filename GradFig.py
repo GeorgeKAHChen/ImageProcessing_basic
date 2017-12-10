@@ -26,7 +26,7 @@ def StaFigPrint(ay, maxx):
 	
 	#x y lim setting	
 	plt.xlim(-1, 270)
-	plt.ylim(0, maxx/10)
+	plt.ylim(0, maxx/5)
 
 	#Printing loop
 	for i in range(0, len(ay)):
@@ -40,6 +40,7 @@ def StaFigPrint(ay, maxx):
 
 
 def FigSta(img, kind):
+	print(img)
 	StaArr = [0 for n in range(260)]
 	TTL = 0
 	Ave = 0
@@ -51,13 +52,13 @@ def FigSta(img, kind):
 		for j in range(0, len(img[i])):
 			StaArr[img[i][j]] += 1
 			TTL += img[i][j]
-
+	"""
 	Ave = TTL / (len(img) * len(img[i]))
 	Owari = False
 	for i in range(0, len(StaArr)):
 		Var += StaArr[i] * pow((i - Ave), 2)
 		if Owari == False:
-			if Cot <= (len(img) * len(img[i])/2):
+			if Cot <= (len(img) * len(img[i]) / 2):
 				Cot += StaArr[i]
 			else:
 				Owari = True
@@ -65,6 +66,7 @@ def FigSta(img, kind):
 
 	
 	Var = Var / (len(img) * len(img[i]))
+	"""
 	if kind == 0:
 		StaFigPrint(StaArr, pow(len(img), 2) / 2)
 		print([Ave, Var, Cen])

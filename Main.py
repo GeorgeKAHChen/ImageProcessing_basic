@@ -32,6 +32,7 @@ import Proj5
 import TimeCal
 import Algorithm
 import Convolution
+import Trans
 
 #return img array: the array of the figure
 #return -1 : exit or no figure
@@ -210,6 +211,10 @@ def MainFunction(kind, Remimg):
 	print("27) Bilateral Filter Smoothing")
 	print("28) Least square estimation")
 	print("29) Iterative solution")
+	print("30) Fourier Transform")
+	print("31) Laplacian Transform")
+	print("32) Z-Transform")
+	print("33) Wavelet Transform")
 	print("0)　EXIT")
 	InpInt = 0
 	while 1:
@@ -296,6 +301,17 @@ def MainFunction(kind, Remimg):
 		img = Proj5.LSE(img)
 	if InpInt == 29:
 		img = Proj5.IS(img)
+	if InpInt == 30:
+		img = Trans.FT(img)
+	if InpInt == 31:
+		Trans.LF(img)
+		MainFunction(kind, Remimg)
+	if InpInt == 32:
+		Trans.ZF(img)
+		MainFunction(kind, Remimg)
+	if InpInt == 33:
+		Trans.WF(img)
+		MainFunction(kind, Remimg)
 	Output(img)
 	InpStr = input("Use the new figure?[Y/n]  ")
 	if InpStr == "Y" or InpStr == "y":
