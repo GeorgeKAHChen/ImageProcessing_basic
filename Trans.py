@@ -31,10 +31,11 @@ import Init
 
 
 def FT(img):
-	FT = np.fft.fft2(img).real
+	PFT = np.fft.fft2(img)
+	TSF = np.fft.fftshift(PFT)
+	FT = np.abs(TSF)
 	#Init.ArrOutput(FT)
 	Maxx = -9999999999
-	Minn = 9999999999
 	for i in range(0, len(FT)):
 		for j in range(0, len(FT[i])):
 			Maxx = max(Maxx, FT[i][j])
@@ -44,7 +45,8 @@ def FT(img):
 			FT[i][j] = max(0, FT[i][j])
 			FT[i][j] = min(255, FT[i][j])
 
-	Init.ArrOutput(FT)
+
+	#Init.ArrOutput(FT)
 	return FT
 
 
