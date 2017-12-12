@@ -21,6 +21,7 @@ from PIL import ImageFilter
 import cv2
 import random 
 
+
 #import files
 import GradFig
 import Init
@@ -33,6 +34,8 @@ import TimeCal
 import Algorithm
 import Convolution
 import Trans
+import ImgEnp
+
 
 #return img array: the array of the figure
 #return -1 : exit or no figure
@@ -212,9 +215,7 @@ def MainFunction(kind, Remimg):
 	print("28) Least square estimation")
 	print("29) Iterative solution")
 	print("30) Fourier Transform")
-	print("31) Laplacian Transform")
-	print("32) Z-Transform")
-	print("33) Wavelet Transform")
+	print("31) Histogram Fourier Transform")
 	print("0)　EXIT")
 	InpInt = 0
 	while 1:
@@ -265,6 +266,7 @@ def MainFunction(kind, Remimg):
 	if InpInt == 11:
 		img = Convolution.Convolution(img)
 		Output(img)
+		return
 	if InpInt == 12:
 		img = Algorithm.MCHE(img)
 	if InpInt == 13:
@@ -304,14 +306,13 @@ def MainFunction(kind, Remimg):
 	if InpInt == 30:
 		img = Trans.FT(img)
 	if InpInt == 31:
-		Trans.LF(img)
+		Trans.HFT(img)
 		MainFunction(kind, Remimg)
+		return
 	if InpInt == 32:
-		Trans.ZF(img)
+		ImgEnp.Main(img)
 		MainFunction(kind, Remimg)
-	if InpInt == 33:
-		Trans.WF(img)
-		MainFunction(kind, Remimg)
+		return	
 	Output(img)
 	InpStr = input("Use the new figure?[Y/n]  ")
 	if InpStr == "Y" or InpStr == "y":
