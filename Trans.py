@@ -94,17 +94,17 @@ def HFT(img):
 	PrintFig(His, sb * 1.5)
 
 	HF = [0 for n in range(260)]
-	"""
+	
 	HF = np.fft.fft(His).real
 	#HF = np.fft.fftshift(HF)
-	#HF = np.abs(HF)
+	HF = np.abs(HF)
 	sb = 0
 	for i in range(0, len(His)):
 		sb = max(sb, His[i])
 	"""
 	for i in range(0, 257):
 		HF[i] = His[i+1] - His[i]
-
+	"""
 	PrintFig(HF, sb*4)
 
 	#理论可行，接下来考虑怎么取一个周期

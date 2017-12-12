@@ -216,6 +216,7 @@ def MainFunction(kind, Remimg):
 	print("29) Iterative solution")
 	print("30) Fourier Transform")
 	print("31) Histogram Fourier Transform")
+	print("32) Entropy Analysis")
 	print("0)　EXIT")
 	InpInt = 0
 	while 1:
@@ -310,9 +311,7 @@ def MainFunction(kind, Remimg):
 		MainFunction(kind, Remimg)
 		return
 	if InpInt == 32:
-		ImgEnp.Main(img)
-		MainFunction(kind, Remimg)
-		return	
+		img = ImgEnp.Main(img)
 	Output(img)
 	InpStr = input("Use the new figure?[Y/n]  ")
 	if InpStr == "Y" or InpStr == "y":
