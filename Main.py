@@ -30,6 +30,7 @@ import Proj2
 import Proj3
 import Proj4
 import Proj5
+import ProjTest
 import TimeCal
 import Algorithm
 import Convolution
@@ -217,6 +218,8 @@ def MainFunction(kind, Remimg):
 	print("30) Fourier Transform")
 	print("31) Histogram Fourier Transform")
 	print("32) Entropy Analysis")
+	print("33) Wavelet Algorithm")
+	print("34) Gauss Random")
 	print("0)　EXIT")
 	InpInt = 0
 	while 1:
@@ -312,6 +315,11 @@ def MainFunction(kind, Remimg):
 		return
 	if InpInt == 32:
 		img = ImgEnp.Main(img)
+	if InpInt == 33:
+		img = ProjTest.Wavelet(img)
+	if InpInt == 34:
+		img = ProjTest.Gauss(img)
+
 	Output(img)
 	InpStr = input("Use the new figure?[Y/n]  ")
 	if InpStr == "Y" or InpStr == "y":
