@@ -29,7 +29,7 @@ import Init
 
 #Definition Constant
 Beta = 0.1
-Lanbda = 0.1 
+Lambda = 0.1 
 Gamma = 0.1
 TotalKase = 3
 
@@ -60,18 +60,37 @@ def ADMM(img):
 	
 	#Definition Iterator vartiables
 	u = np.matrix(img)
-	y = np.matrix([0.00 for n in range(0, len(img[0]))] for n in range(len(img)))
-	mu = np.matrix([0.00 for n in range(0, len(img[0]))] for n in range(len(img)))
-
+	y = np.matrix([[0.00 for n in range(0, len(img[0]))] for n in range(len(img))] for n in range(4))
+	mu = np.matrix([[0.00 for n in range(0, len(img[0]))] for n in range(len(img))] for n in range(4))
+	
 	#Definition Constant
-	H = np.matrix(np.fft.fft2(img))
-
+	H = np.matrix(np.abs(np.fft.fftshift(np.fft.fft2(img).real)))
+	HT = H.transpose()
+	"""
+	D = np.matrix(pywt.dwt2(img, "haar")[0])
+	DT = D.transpose()
+	"""
+	I = np.matrix([1 for n in range(0, len(img[0]))] for n in range(len(img)))
 
 	#Main Algorithm
 	for Kase in range(0, TotalKase):
-		pass
+		u1 = ((H.transpose() * H + Beta * I).I) * (HT * u + Beta * np.matrix(pywt.idwt2((y + mu/Beta), "haar")))		
+		y1 = np.matrix(pywt.dwt2(u)) - mu/Beta
+		
+		if math.abs(y1.all()) > 0.0001:
+			y1 -= Lambda / Beta
+		elif math.abs(y1.all()) < 0.0001:
+			y1 += Lambda / Beta
+		else:
+			y1 = np.matrix([[0.00 for n in range(0, len(img[0]))] for n in range(len(img))] for n in range(4))
+		
+		mu1 = mu + Gamma*(y - pywt.dwt2(u))
 
+		u = u1
+		y = y1
+		mu = mu1
 
+	#After treatment
 	for i in range(0, len(u)):
 		for j in range(0, len(u[i])):
 			u[i][j] = int(u[i][j])
@@ -79,8 +98,7 @@ def ADMM(img):
 			u[i][j] = max(0, u[i][j])
 
 
-
-
+	return u
 
 
 

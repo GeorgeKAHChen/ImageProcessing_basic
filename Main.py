@@ -220,6 +220,7 @@ def MainFunction(kind, Remimg):
 	print("32) Entropy Analysis")
 	print("33) Wavelet Algorithm")
 	print("34) Gauss Random")
+	print("35) ADMM Algorithm")
 	print("0)　EXIT")
 	InpInt = 0
 	while 1:
@@ -319,7 +320,8 @@ def MainFunction(kind, Remimg):
 		img = ProjTest.Wavelet(img)
 	if InpInt == 34:
 		img = ProjTest.Gauss(img)
-
+	if InpInt == 35:
+		img = ProjTest.ADMM(img)
 	Output(img)
 	InpStr = input("Use the new figure?[Y/n]  ")
 	if InpStr == "Y" or InpStr == "y":
