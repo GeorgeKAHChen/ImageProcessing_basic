@@ -12,14 +12,12 @@ For Linux Ubuntu and Debain system<br/>
     sudo apt update
     sudo apt install python3 python3-pip ipython3
 ```
-<br/>
 For Fedora and Red-hat system<br/>
 ```
     sudo yum upgrade
     sudo yum update
     sudo yum install python3 python3-pip ipython3
 ```
-<br/>
 For Mac OS<br/>
 You should insttall brew first<br/>
 ```
