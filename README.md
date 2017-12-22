@@ -1,4 +1,60 @@
-# ImageProcessing_in_USTB
+# ImageProcessing_in_USTB (Finished)
+I finished all this program finally.<br/>
+A long time journey, I used about 14 week to finished all this program.<br/>
+However, this program still have some little bug which I am not confident. As I will use this program to finish some research, I think I will find them and recovery.<br/>
+## Surround
+`Warning: As I did nothing of compatibility， DO Not using this program on Windows system. You can use this program on UNIX 
+You should install some package before using it, and I will give you the installation function with pip3`<br/>
+STEP 1: Install Python3<br/>
+For Linux Ubuntu and Debain system<br/>
+```
+    sudo apt upgrade
+    sudo apt update
+    sudo apt install python3 python3-pip ipython3
+```
+<br/>
+For Fedora and Red-hat system<br/>
+```
+    sudo yum upgrade
+    sudo yum update
+    sudo yum install python3 python3-pip ipython3
+```
+<br/>
+For Mac OS<br/>
+You should insttall brew first<br/>
+```
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+And install python3<br/>
+```
+    brew update
+    brew upgrade
+    brew install python3 python3-pip ipython3
+```
+
+STEP 2: Install python package<br/>
+```
+    pip3 install Pillow
+    pip3 install matplotlib
+    pip3 install PyWavelets
+```
+You should also install opev-cv, however, as the installation of open-cv is so different, I cannot give you some confident method to install it. Here I will give you a reference of open-cv installation.<br/>
+For Linux<br/>
+```
+    https://docs.opencv.org/trunk/d7/d9f/tutorial_linux_install.html
+```
+For Mac OS<br/>
+```
+    https://www.pyimagesearch.com/2016/12/19/install-opencv-3-on-macos-with-homebrew-the-easy-way/
+```
+
+STEP 3:
+
+This program will read all jpg, png and bmp figures in the program folders without /Output.
+
+
+
+<h2>History version </h2>
 This program is the code I had written or I will write during my Image Processing course in USTB.<br/>
 As usual I will still use Python, which is the most beautiful program language (just a joke).<br/>
 And if you are my friend or student in my school, you can also use these code during this class.<br/>
