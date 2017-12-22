@@ -56,9 +56,13 @@ You can begin all the program with the command <br/>
     python3 Main.py
 ```
 First in first, you need to choose the figure you want to use. Print the code of figure and press ENTER.<br/>
+![image](http://stlaplace.com/img/Git/1.png)
 Here, you can choose you need using this figure for a long time or just one case. If you input n or N, after algorithm, you need choose a new figure, else, you can use this figure for a long time.<br/>
+![image](http://stlaplace.com/img/Git/2.png)
 After that, you can choose the algorithm you need, or input 0 to exit and -1 to choose another figure.<br/>
+![image](http://stlaplace.com/img/Git/3.png)
 If you used any algorithm, the system will ask you if you need save this figure or not, all the figure will be saved in folder /Output (Thats why all figure in /Output will not be read).<br/>
+![image](http://stlaplace.com/img/Git/4.png)
 The system will also ask you if you need using this figure or not. If you input y or Y, you can use other tools working on the figure after algorithm.<br/>
 
 ## Functions
