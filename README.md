@@ -1,4 +1,4 @@
-# ImageProcessing_in_USTB (Finished, version 2.0)
+# ImageProcessing (Finished, version 2.0)
 I finished all this program finally.<br/>
 A long time journey, I used about 14 week to finished all this program.<br/>
 However, this program still have some little bug which I am not confident. As I will use this program to finish some research, I think I will find them and recovery.<br/>
@@ -129,24 +129,7 @@ http://www.criea.info/index.php/%E9%A6%96%E9%A1%B5<br/>
 And the code of this program is over here:<br/>
 https://github.com/KazukiAmakawa/CRIEA<br/>
 
-## Special Thanks
-My teacher Zhengwei Sheng. And my friends include Tao Ren, Yurou Chen, Kun Liu, Ruijie Lv.<br/>
-If you have some problem, please send the E-mail to KazukiAmakawa@gmail.com, Thanks!
-<br/>
-<br/>
-<br/>
-<br/>
-Kazuki Amakawa<br/>
-22 Dec. 2017<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
+
 <br/>
 ## History version
 This program is the code I had written or I will write during my Image Processing course in USTB.<br/>
